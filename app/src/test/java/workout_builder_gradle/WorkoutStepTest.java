@@ -7,17 +7,29 @@ import com.garmin.fit.WktStepTarget;
 import com.garmin.fit.WorkoutStepMesg;
 
 class WorkoutStepTest {
+    public static final String STEPNAME = "Warmup";
+    public static final long DURATION_VALUE = 1200000;
+    public static final String NOTES = "130bpm";
+    public static final String TARGET_TYPE_POWER = "power";
+    public static final String DURATION_TYPE_OPEN = "open";
+    public static final int TARGET_VALUE_POWER = 300;
+
     @Test
-    void workoutStepDurationTimeInputIsTime() {
-        WorkoutStepMesg step = WorkoutStep.buildStep(1, "Warmup", "Time", 1200000, "power", 300, "130bpm", null);
+    void workoutStepDurationTypeInputIsTime() {
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, STEPNAME, "Time", DURATION_VALUE, TARGET_TYPE_POWER,
+                TARGET_VALUE_POWER, NOTES,
+                null);
         WktStepDuration duration_type = step.getDurationType();
         WktStepDuration timeDuration = WktStepDuration.TIME;
         assertEquals(timeDuration, duration_type, "WktStepDuration should be TIME");
     }
 
     @Test
-    void workoutStepDurationTimeInputIsDistance() {
-        WorkoutStepMesg step = WorkoutStep.buildStep(1, "Warmup", "Distance", 1200000, "power", 300, "130bpm", null);
+    void workoutStepDurationTypeInputIsDistance() {
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, STEPNAME, "Distance", DURATION_VALUE, TARGET_TYPE_POWER,
+                TARGET_VALUE_POWER,
+                NOTES,
+                null);
         WktStepDuration duration_type = step.getDurationType();
         WktStepDuration distanceDuration = WktStepDuration.DISTANCE;
         assertEquals(distanceDuration, duration_type, "WktStepDuration should be DISTANCE");
@@ -25,8 +37,10 @@ class WorkoutStepTest {
     }
 
     @Test
-    void workoutStepDurationTimeInputIsOpen() {
-        WorkoutStepMesg step = WorkoutStep.buildStep(1, "Warmup", "Open", 1200000, "power", 300, "130bpm", null);
+    void workoutStepDurationTypeInputIsOpen() {
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, STEPNAME, DURATION_TYPE_OPEN, DURATION_VALUE, TARGET_TYPE_POWER,
+                TARGET_VALUE_POWER, NOTES,
+                null);
         WktStepDuration duration_type = step.getDurationType();
         WktStepDuration openDuration = WktStepDuration.OPEN;
         assertEquals(openDuration, duration_type, "WktStepDuration should be OPEN");
@@ -34,14 +48,19 @@ class WorkoutStepTest {
     }
 
     @Test
-    void workoutStepDurationTimeInputIsUnknown() {
-        WorkoutStepMesg step = WorkoutStep.buildStep(1, "Warmup", "whatever", 1200000, "power", 300, "130bpm", null);
+    void workoutStepDurationTypeInputIsUnknown() {
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, STEPNAME, "whatever", DURATION_VALUE, TARGET_TYPE_POWER,
+                TARGET_VALUE_POWER,
+                NOTES,
+                null);
         assertTrue(step == null, "WorkoutStep should return null");
     }
 
     @Test
     void workoutStepIndexIsOne() {
-        WorkoutStepMesg step = WorkoutStep.buildStep(1, "Warmup", "Open", 1200000, "power", 300, "130bpm", null);
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, STEPNAME, DURATION_TYPE_OPEN, DURATION_VALUE, TARGET_TYPE_POWER,
+                TARGET_VALUE_POWER, NOTES,
+                null);
         WorkoutStepMesg expected = new WorkoutStepMesg();
         expected.setMessageIndex(1);
         assertEquals(expected.getMessageIndex(), step.getMessageIndex(), "messageIndex should be 1");
@@ -49,63 +68,90 @@ class WorkoutStepTest {
 
     @Test
     void workoutStepNameIsWarmup() {
-        WorkoutStepMesg step = WorkoutStep.buildStep(1, "Warmup", "Open", 1200000, "power", 300, "130bpm", null);
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, STEPNAME, DURATION_TYPE_OPEN, DURATION_VALUE, TARGET_TYPE_POWER,
+                TARGET_VALUE_POWER, NOTES,
+                null);
         WorkoutStepMesg expected = new WorkoutStepMesg();
-        expected.setWktStepName("Warmup");
+        expected.setWktStepName(STEPNAME);
         assertEquals(expected.getWktStepName(), step.getWktStepName(), "stepName should be \"Warmup\"");
     }
 
     @Test
     void workoutStepNameIsEmpty() {
-        WorkoutStepMesg step = WorkoutStep.buildStep(1, "", "Open", 1200000, "power", 300, "130bpm", null);
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, "", DURATION_TYPE_OPEN, DURATION_VALUE, TARGET_TYPE_POWER,
+                TARGET_VALUE_POWER,
+                NOTES,
+                null);
         WorkoutStepMesg expected = new WorkoutStepMesg();
         assertEquals(expected.getWktStepName(), step.getWktStepName(), "stepName should be null");
     }
 
     @Test
     void workoutStepNameIsNull() {
-        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, "Open", 1200000, "power", 300, "130bpm", null);
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, DURATION_TYPE_OPEN, DURATION_VALUE, TARGET_TYPE_POWER,
+                TARGET_VALUE_POWER, NOTES,
+                null);
         WorkoutStepMesg expected = new WorkoutStepMesg();
         assertEquals(expected.getWktStepName(), step.getWktStepName(), "stepName should be null");
     }
 
     @Test
     void workoutDurationValueIsPositiveInt() {
-        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, "Open", 1200000, "power", 300, "130bpm", null);
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, DURATION_TYPE_OPEN, DURATION_VALUE, TARGET_TYPE_POWER,
+                TARGET_VALUE_POWER, NOTES,
+                null);
         WorkoutStepMesg expected = new WorkoutStepMesg();
-        expected.setDurationValue((long) 1200000);
-        assertEquals(expected.getDurationValue(), step.getDurationValue(), "durationValue should be 1200000");
+        expected.setDurationValue((long) DURATION_VALUE);
+        assertEquals(expected.getDurationValue(), step.getDurationValue(), "durationValue should be DURATION_VALUE");
     }
 
     @Test
     void workoutTargetTypeIsPower() {
-        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, "Open", 1200000, "power", 300, "130bpm", null);
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, DURATION_TYPE_OPEN, DURATION_VALUE, TARGET_TYPE_POWER,
+                TARGET_VALUE_POWER, NOTES,
+                null);
         WorkoutStepMesg expected = new WorkoutStepMesg();
         expected.setTargetType(WktStepTarget.POWER);
-        assertEquals(expected.getTargetType(), step.getTargetType(), "durationValue should be 1200000");
+        assertEquals(expected.getTargetType(), step.getTargetType(), "durationValue should be DURATION_VALUE");
     }
 
     @Test
     void workoutTargetTypeIsHeartRate() {
-        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, "Open", 1200000, "hr", 300, "130bpm", null);
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, DURATION_TYPE_OPEN, DURATION_VALUE, "hr",
+                TARGET_VALUE_POWER, NOTES,
+                null);
         WorkoutStepMesg expected = new WorkoutStepMesg();
         expected.setTargetType(WktStepTarget.HEART_RATE);
-        assertEquals(expected.getTargetType(), step.getTargetType(), "durationValue should be 1200000");
+        assertEquals(expected.getTargetType(), step.getTargetType(), "durationValue should be DURATION_VALUE");
     }
 
     @Test
     void workoutTargetTypeIsSpeed() {
-        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, "Open", 1200000, "speed", 300, "130bpm", null);
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, DURATION_TYPE_OPEN, DURATION_VALUE, "speed",
+                TARGET_VALUE_POWER, NOTES,
+                null);
         WorkoutStepMesg expected = new WorkoutStepMesg();
         expected.setTargetType(WktStepTarget.SPEED);
-        assertEquals(expected.getTargetType(), step.getTargetType(), "durationValue should be 1200000");
+        assertEquals(expected.getTargetType(), step.getTargetType(), "durationValue should be DURATION_VALUE");
     }
 
     @Test
     void workoutTargetTypeIsCadence() {
-        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, "Open", 1200000, "cadence", 300, "130bpm", null);
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, DURATION_TYPE_OPEN, DURATION_VALUE, "cadence",
+                TARGET_VALUE_POWER, NOTES,
+                null);
         WorkoutStepMesg expected = new WorkoutStepMesg();
         expected.setTargetType(WktStepTarget.CADENCE);
-        assertEquals(expected.getTargetType(), step.getTargetType(), "durationValue should be 1200000");
+        assertEquals(expected.getTargetType(), step.getTargetType(), "durationValue should be DURATION_VALUE");
+    }
+
+    @Test
+    void workoutTargetValueIsPositiveInt() {
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, DURATION_TYPE_OPEN, DURATION_VALUE, "cadence",
+                TARGET_VALUE_POWER, NOTES,
+                null);
+        WorkoutStepMesg expected = new WorkoutStepMesg();
+        expected.setTargetType(WktStepTarget.CADENCE);
+        assertEquals(expected.getTargetType(), step.getTargetType(), "durationValue should be DURATION_VALUE");
     }
 }
