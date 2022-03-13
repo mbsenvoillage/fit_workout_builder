@@ -1,0 +1,25 @@
+- Build a workout
+  - Build a workout step message
+    - with valid inputs
+      - WorkoutStep => WorkoutStepMsg
+        - WorkoutStep(1, "Warmup", "Time", 1200000, "Watts", 300, "130bpm", null).getDurationType() == WktStepDuration.TIME;
+        - WorkoutStep(1, "Warmup", "Distance", 1200000, "Watts", 300, "130bpm", null).getDurationType() == WktStepDuration.DISTANCE;
+        - WorkoutStep(1, "Warmup", "Open", 1200000, "Watts", 300, "130bpm", null).getDurationType() == WktStepDuration.OPEN;
+        - WorkoutStep(index = 1) == WorkoutStepMsg.index = 1
+        - WorkoutStep(index = 0) == WorkoutStepMsg.index = 0
+        - WorkoutStep(step_name = “Warmup”) => WorkoutStepMsg.stepName = “Warmup”
+        - WorkoutStep(step_name = “”) => WorkoutStepMsg.stepName = null
+        - WorkoutStep(step_name = “”) => WorkoutStepMsg.stepName = null
+    - with invalid inputs
+      - WorkoutStep => null
+        - WorkoutStep(1, "Warmup", "Whatever", 1200000, "Watts", 300, "130bpm", null) == null;
+        - WorkoutStep(1, "Warmup", null, 1200000, "Watts", 300, "130bpm", null) => null;
+        - WorkoutStep(index = -1) => WorkoutStepMsg is null
+        - WorkoutStep(index = null) => WorkoutStepMsg is null
+        - WorkoutStep(step_name = null) => WorkoutStepMsg.stepName = null
+  - Build a field id message
+    - with valid inputs
+    - with invalid inputs
+  - Build a workout message
+    - with valid inputs
+    - with invalid inputs
