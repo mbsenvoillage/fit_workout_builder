@@ -27,6 +27,24 @@ class WorkoutStepTest {
     }
 
     @Test
+    void workoutStepDurationTypeInputIsInvalid() {
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, STEPNAME, "invalid_duration_type", DURATION_VALUE,
+                TARGET_TYPE_POWER,
+                TARGET_VALUE_POWER, NOTES,
+                null);
+        assertEquals(step, null, "WorkoutStepMesg should be null");
+    }
+
+    @Test
+    void workoutStepDurationTypeInputIsNull() {
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, STEPNAME, null, DURATION_VALUE,
+                TARGET_TYPE_POWER,
+                TARGET_VALUE_POWER, NOTES,
+                null);
+        assertEquals(step, null, "WorkoutStepMesg should be null");
+    }
+
+    @Test
     void workoutStepDurationTypeInputIsDistance() {
         WorkoutStepMesg step = WorkoutStep.buildStep(1, STEPNAME, "Distance", DURATION_VALUE, TARGET_TYPE_POWER,
                 TARGET_VALUE_POWER,
@@ -69,6 +87,16 @@ class WorkoutStepTest {
     }
 
     @Test
+    void workoutStepIndexIsNegativeInteger() {
+        WorkoutStepMesg step = WorkoutStep.buildStep(-1, STEPNAME, DURATION_TYPE_OPEN, DURATION_VALUE,
+                TARGET_TYPE_POWER,
+                TARGET_VALUE_POWER, NOTES,
+                null);
+
+        assertEquals(null, step, "WorkoutStepMesg should be null");
+    }
+
+    @Test
     void workoutStepNameIsWarmup() {
         WorkoutStepMesg step = WorkoutStep.buildStep(1, STEPNAME, DURATION_TYPE_OPEN, DURATION_VALUE, TARGET_TYPE_POWER,
                 TARGET_VALUE_POWER, NOTES,
@@ -108,6 +136,14 @@ class WorkoutStepTest {
     }
 
     @Test
+    void workoutDurationValueIsZero() {
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, DURATION_TYPE_OPEN, 0, TARGET_TYPE_POWER,
+                TARGET_VALUE_POWER, NOTES,
+                null);
+        assertEquals(null, step, "WorkoutStepMesg should be null");
+    }
+
+    @Test
     void workoutTargetTypeIsPower() {
         WorkoutStepMesg step = WorkoutStep.buildStep(1, null, DURATION_TYPE_OPEN, DURATION_VALUE, TARGET_TYPE_POWER,
                 TARGET_VALUE_POWER, NOTES,
@@ -115,6 +151,22 @@ class WorkoutStepTest {
         WorkoutStepMesg expected = new WorkoutStepMesg();
         expected.setTargetType(WktStepTarget.POWER);
         assertEquals(expected.getTargetType(), step.getTargetType(), "targetType should be " + TARGET_TYPE_POWER);
+    }
+
+    @Test
+    void workoutTargetTypeIsNull() {
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, DURATION_TYPE_OPEN, DURATION_VALUE, null,
+                TARGET_VALUE_POWER, NOTES,
+                null);
+        assertEquals(null, step, "targetType should be " + TARGET_TYPE_POWER);
+    }
+
+    @Test
+    void workoutTargetTypeIsUnknown() {
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, DURATION_TYPE_OPEN, DURATION_VALUE, "unkown_target_type",
+                TARGET_VALUE_POWER, NOTES,
+                null);
+        assertEquals(null, step, "targetType should be " + TARGET_TYPE_POWER);
     }
 
     @Test
@@ -155,6 +207,14 @@ class WorkoutStepTest {
         WorkoutStepMesg expected = new WorkoutStepMesg();
         expected.setTargetValue((long) TARGET_VALUE_POWER);
         assertEquals(expected.getTargetValue(), step.getTargetValue(), "target value should be " + TARGET_VALUE_POWER);
+    }
+
+    @Test
+    void workoutTargetValueIsZero() {
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, DURATION_TYPE_OPEN, DURATION_VALUE, "cadence",
+                0, NOTES,
+                null);
+        assertEquals(null, step, "WorkoutStepMesg should be null");
     }
 
     @Test
