@@ -60,8 +60,6 @@ public class App {
                 "]" +
                 "}";
 
-        WorkoutBuilder wb = new WorkoutBuilder(example);
-        System.out.println(wb.getNumOfSteps());
     }
 
     private static WorkoutStepMesg CreateWorkoutStep(int messageIndex,

@@ -117,7 +117,7 @@ class WorkoutStepTest {
 
     @Test
     void workoutTargetTypeIsHeartRate() {
-        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, DURATION_TYPE_OPEN, DURATION_VALUE, "hr",
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, DURATION_TYPE_OPEN, DURATION_VALUE, "heart_rate",
                 TARGET_VALUE_POWER, NOTES,
                 null);
         WorkoutStepMesg expected = new WorkoutStepMesg();
