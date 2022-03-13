@@ -5,3 +5,6 @@
 build
 
 .vscode
+
+# ignore fit artifacts
+*.fit
