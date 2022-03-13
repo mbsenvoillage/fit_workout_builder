@@ -1,6 +1,7 @@
 package workout_builder_gradle;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Random;
 
@@ -59,6 +60,10 @@ public class App {
                 "}" +
                 "]" +
                 "}";
+
+        int[] s = { 1, 2, 0 };
+        Arrays.sort(s);
+        System.out.println(s[0]);
 
     }
 

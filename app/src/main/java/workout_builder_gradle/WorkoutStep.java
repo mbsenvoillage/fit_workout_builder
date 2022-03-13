@@ -1,5 +1,7 @@
 package workout_builder_gradle;
 
+import java.util.Arrays;
+
 import com.garmin.fit.WktStepDuration;
 import com.garmin.fit.WktStepTarget;
 import com.garmin.fit.WorkoutStepMesg;
@@ -27,6 +29,17 @@ public abstract class WorkoutStep {
             return null;
         }
         step.setTargetType(formattedTargetType);
+
+        if (range != null) {
+            Arrays.sort(range);
+            step.setTargetValue((long) 0);
+            step.setCustomTargetValueLow((long) range[0]);
+            step.setCustomTargetValueHigh((long) range[1]);
+        } else {
+            step.setTargetValue((long) targetValue);
+            step.setCustomTargetValueLow((long) 0);
+            step.setCustomTargetValueHigh((long) 0);
+        }
 
         return step;
     }

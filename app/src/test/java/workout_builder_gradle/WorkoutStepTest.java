@@ -13,6 +13,8 @@ class WorkoutStepTest {
     public static final String TARGET_TYPE_POWER = "power";
     public static final String DURATION_TYPE_OPEN = "open";
     public static final int TARGET_VALUE_POWER = 300;
+    public static final int TARGET_LOW = 100;
+    public static final int TARGET_HIGH = 200;
 
     @Test
     void workoutStepDurationTypeInputIsTime() {
@@ -102,7 +104,7 @@ class WorkoutStepTest {
                 null);
         WorkoutStepMesg expected = new WorkoutStepMesg();
         expected.setDurationValue((long) DURATION_VALUE);
-        assertEquals(expected.getDurationValue(), step.getDurationValue(), "durationValue should be DURATION_VALUE");
+        assertEquals(expected.getDurationValue(), step.getDurationValue(), "durationValue should be " + DURATION_VALUE);
     }
 
     @Test
@@ -112,7 +114,7 @@ class WorkoutStepTest {
                 null);
         WorkoutStepMesg expected = new WorkoutStepMesg();
         expected.setTargetType(WktStepTarget.POWER);
-        assertEquals(expected.getTargetType(), step.getTargetType(), "durationValue should be DURATION_VALUE");
+        assertEquals(expected.getTargetType(), step.getTargetType(), "targetType should be " + TARGET_TYPE_POWER);
     }
 
     @Test
@@ -122,7 +124,7 @@ class WorkoutStepTest {
                 null);
         WorkoutStepMesg expected = new WorkoutStepMesg();
         expected.setTargetType(WktStepTarget.HEART_RATE);
-        assertEquals(expected.getTargetType(), step.getTargetType(), "durationValue should be DURATION_VALUE");
+        assertEquals(expected.getTargetType(), step.getTargetType(), "targetType should be heart_rate");
     }
 
     @Test
@@ -132,7 +134,7 @@ class WorkoutStepTest {
                 null);
         WorkoutStepMesg expected = new WorkoutStepMesg();
         expected.setTargetType(WktStepTarget.SPEED);
-        assertEquals(expected.getTargetType(), step.getTargetType(), "durationValue should be DURATION_VALUE");
+        assertEquals(expected.getTargetType(), step.getTargetType(), "targetType should be speed");
     }
 
     @Test
@@ -142,7 +144,7 @@ class WorkoutStepTest {
                 null);
         WorkoutStepMesg expected = new WorkoutStepMesg();
         expected.setTargetType(WktStepTarget.CADENCE);
-        assertEquals(expected.getTargetType(), step.getTargetType(), "durationValue should be DURATION_VALUE");
+        assertEquals(expected.getTargetType(), step.getTargetType(), "targetType should be cadence");
     }
 
     @Test
@@ -151,8 +153,8 @@ class WorkoutStepTest {
                 TARGET_VALUE_POWER, NOTES,
                 null);
         WorkoutStepMesg expected = new WorkoutStepMesg();
-        expected.setTargetType(WktStepTarget.CADENCE);
-        assertEquals(expected.getTargetType(), step.getTargetType(), "durationValue should be DURATION_VALUE");
+        expected.setTargetValue((long) TARGET_VALUE_POWER);
+        assertEquals(expected.getTargetValue(), step.getTargetValue(), "target value should be " + TARGET_VALUE_POWER);
     }
 
     @Test
@@ -186,5 +188,37 @@ class WorkoutStepTest {
         WorkoutStepMesg expected = new WorkoutStepMesg();
         expected.setNotes(notes);
         assertEquals(expected.getNotes(), step.getNotes(), "notes should be " + "'" + notes + "'");
+    }
+
+    @Test
+    void workoutRangeIsAscending() {
+        int[] range = { TARGET_LOW, TARGET_HIGH };
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, DURATION_TYPE_OPEN, DURATION_VALUE, "cadence",
+                TARGET_VALUE_POWER, NOTES,
+                range);
+        WorkoutStepMesg expected = new WorkoutStepMesg();
+        expected.setCustomTargetValueLow((long) TARGET_LOW);
+        expected.setCustomTargetValueHigh((long) TARGET_HIGH);
+        assertEquals(expected.getCustomTargetValueLow(), step.getCustomTargetValueLow(),
+                "Low target value should be " + TARGET_LOW);
+        assertEquals(expected.getCustomTargetValueHigh(), step.getCustomTargetValueHigh(),
+                "High target value should be " + TARGET_HIGH);
+
+    }
+
+    @Test
+    void workoutRangeIsDescending() {
+        int[] range = { TARGET_HIGH, TARGET_LOW };
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, DURATION_TYPE_OPEN, DURATION_VALUE, "cadence",
+                TARGET_VALUE_POWER, NOTES,
+                range);
+        WorkoutStepMesg expected = new WorkoutStepMesg();
+        expected.setCustomTargetValueLow((long) TARGET_LOW);
+        expected.setCustomTargetValueHigh((long) TARGET_HIGH);
+        assertEquals(expected.getCustomTargetValueLow(), step.getCustomTargetValueLow(),
+                "Low target value should be " + TARGET_LOW);
+        assertEquals(expected.getCustomTargetValueHigh(), step.getCustomTargetValueHigh(),
+                "High target value should be " + TARGET_HIGH);
+
     }
 }
