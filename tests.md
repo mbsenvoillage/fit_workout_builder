@@ -11,7 +11,6 @@
           - WorkoutStep(1, "Warmup", "Open", 1200000, "Watts", 300, "130bpm", null).getDurationType() == WktStepDuration.OPEN;
         - Index
           - WorkoutStep(index = 1) => WorkoutStepMsg.index = 1
-          - WorkoutStep(index = 0) => WorkoutStepMsg.index = 0
         - StepName
           - WorkoutStep(step_name = “Warmup”) => WorkoutStepMsg.stepName = “Warmup”
           - WorkoutStep(step_name = “”) => WorkoutStepMsg.stepName = null

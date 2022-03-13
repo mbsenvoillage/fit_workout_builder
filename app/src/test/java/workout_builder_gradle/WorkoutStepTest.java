@@ -37,4 +37,34 @@ class WorkoutStepTest {
         WorkoutStepMesg step = WorkoutStep.buildStep(1, "Warmup", "whatever", 1200000, "Watts", 300, "130bpm", null);
         assertTrue(step == null, "WorkoutStep should return null");
     }
+
+    @Test
+    void workoutStepIndexIsOne() {
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, "Warmup", "Open", 1200000, "Watts", 300, "130bpm", null);
+        WorkoutStepMesg expected = new WorkoutStepMesg();
+        expected.setMessageIndex(1);
+        assertEquals(expected.getMessageIndex(), step.getMessageIndex(), "messageIndex should be 1");
+    }
+
+    @Test
+    void workoutStepNameIsWarmup() {
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, "Warmup", "Open", 1200000, "Watts", 300, "130bpm", null);
+        WorkoutStepMesg expected = new WorkoutStepMesg();
+        expected.setWktStepName("Warmup");
+        assertEquals(expected.getWktStepName(), step.getWktStepName(), "stepName should be \"Warmup\"");
+    }
+
+    @Test
+    void workoutStepNameIsEmpty() {
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, "", "Open", 1200000, "Watts", 300, "130bpm", null);
+        WorkoutStepMesg expected = new WorkoutStepMesg();
+        assertEquals(expected.getWktStepName(), step.getWktStepName(), "stepName should be null");
+    }
+
+    @Test
+    void workoutStepNameIsNull() {
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, "Open", 1200000, "Watts", 300, "130bpm", null);
+        WorkoutStepMesg expected = new WorkoutStepMesg();
+        assertEquals(expected.getWktStepName(), step.getWktStepName(), "stepName should be null");
+    }
 }

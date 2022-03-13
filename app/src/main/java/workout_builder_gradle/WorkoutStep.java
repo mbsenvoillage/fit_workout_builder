@@ -12,6 +12,9 @@ public abstract class WorkoutStep {
             int targetValue, String notes, int[] range) {
         WorkoutStepMesg step = new WorkoutStepMesg();
 
+        step.setMessageIndex(index);
+        step.setWktStepName(stepName);
+
         WktStepDuration formatted_durationType = WorkoutStep.getDurationType(durationType);
         if (formatted_durationType == null) {
             return null;
