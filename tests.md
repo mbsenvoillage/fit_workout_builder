@@ -1,22 +1,61 @@
 - Build a workout
+
   - Build a workout step message
+
     - with valid inputs
+
       - WorkoutStep => WorkoutStepMsg
-        - WorkoutStep(1, "Warmup", "Time", 1200000, "Watts", 300, "130bpm", null).getDurationType() == WktStepDuration.TIME;
-        - WorkoutStep(1, "Warmup", "Distance", 1200000, "Watts", 300, "130bpm", null).getDurationType() == WktStepDuration.DISTANCE;
-        - WorkoutStep(1, "Warmup", "Open", 1200000, "Watts", 300, "130bpm", null).getDurationType() == WktStepDuration.OPEN;
-        - WorkoutStep(index = 1) == WorkoutStepMsg.index = 1
-        - WorkoutStep(index = 0) == WorkoutStepMsg.index = 0
-        - WorkoutStep(step_name = “Warmup”) => WorkoutStepMsg.stepName = “Warmup”
-        - WorkoutStep(step_name = “”) => WorkoutStepMsg.stepName = null
-        - WorkoutStep(step_name = “”) => WorkoutStepMsg.stepName = null
+        - DurationType
+          - WorkoutStep(1, "Warmup", "Time", 1200000, "Watts", 300, "130bpm", null).getDurationType() == WktStepDuration.TIME;
+          - WorkoutStep(1, "Warmup", "Distance", 1200000, "Watts", 300, "130bpm", null).getDurationType() == WktStepDuration.DISTANCE;
+          - WorkoutStep(1, "Warmup", "Open", 1200000, "Watts", 300, "130bpm", null).getDurationType() == WktStepDuration.OPEN;
+        - Index
+          - WorkoutStep(index = 1) => WorkoutStepMsg.index = 1
+          - WorkoutStep(index = 0) => WorkoutStepMsg.index = 0
+        - StepName
+          - WorkoutStep(step_name = “Warmup”) => WorkoutStepMsg.stepName = “Warmup”
+          - WorkoutStep(step_name = “”) => WorkoutStepMsg.stepName = null
+          - WorkoutStep(step_name = null) => WorkoutStepMsg.stepName = null
+        - DurationValue
+          - WorkoutStep(durationValue = 120000) => WorkoutStepMsg.durationValue = 120000
+        - TargetType
+          - WorkoutStep(targetType = “speed”) => WorkoutStep.targetType = SPEED
+          - WorkoutStep(targetType = “hr”) => WorkoutStep.targetType = HEART_RATE
+          - WorkoutStep(targetType = “cadence”) => WorkoutStep.targetType = CADENCE
+          - WorkoutStep(targetType = “power”) => WorkoutStep.targetType = POWER
+        - TargetValue
+          - WorkoutStep(targetValue = 320) => WorkoutStep.targetValue = 320
+        - Notes
+          - WorkoutStep(notes = “Some good piece of advice”) => WorkoutStep.notes = “Some good piece of advice”
+          - WorkoutStep(notes = “”) => WorkoutStep.notes = null
+          - WorkoutStep(notes = null) => WorkoutStep.notes = null
+        - Range
+          - WorkoutStep(range = [100, 200]) => WorkoutStep.targetValueLow = 100 && WorkoutStep.targetValueHigh = 200
+          - WorkoutStep(range = [200, 100]) => WorkoutStep.targetValueLow = 100 && WorkoutStep.targetValueHigh = 200
+
     - with invalid inputs
       - WorkoutStep => null
-        - WorkoutStep(1, "Warmup", "Whatever", 1200000, "Watts", 300, "130bpm", null) == null;
-        - WorkoutStep(1, "Warmup", null, 1200000, "Watts", 300, "130bpm", null) => null;
-        - WorkoutStep(index = -1) => WorkoutStepMsg is null
-        - WorkoutStep(index = null) => WorkoutStepMsg is null
-        - WorkoutStep(step_name = null) => WorkoutStepMsg.stepName = null
+        - DurationType
+          - WorkoutStep(1, "Warmup", "Whatever", 1200000, "Watts", 300, "130bpm", null) == null;
+          - WorkoutStep(1, "Warmup", null, 1200000, "Watts", 300, "130bpm", null) => null;
+        - Index
+          - WorkoutStep(index = -1) => WorkoutStepMsg is null
+          - WorkoutStep(index = null) => WorkoutStepMsg is null
+        - DurationValue
+          - WorkoutStep(durationValue = 0) => WorkoutStepMsg = null
+          - WorkoutStep(durationValue = null) => WorkoutStepMsg = null
+          - WorkoutStep(durationValue = -1) => WorkoutStepMsg = null
+        - TargetType
+          - WorkoutStep(targetType = “”) => WorkoutStep = null
+          - WorkoutStep(targetType = “unknown”) => WorkoutStep = null
+        - TargetValue
+          - WorkoutStep(targetValue = 0) => WorkoutStep = null
+          - WorkoutStep(targetValue = null) => WorkoutStep = null
+          - WorkoutStep(targetValue = -1) => WorkoutStep = null
+        - Range
+          - WorkoutStep(range = [0, 0]) => WorkoutStep.targetValueLow = null && WorkoutStep.targetValueHigh = null
+          - WorkoutStep(range = [-2, -9]) => WorkoutStep.targetValueLow = null && WorkoutStep.targetValueHigh = null
+
   - Build a field id message
     - with valid inputs
     - with invalid inputs
