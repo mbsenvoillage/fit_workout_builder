@@ -16,6 +16,7 @@ public abstract class WorkoutStep {
         step.setMessageIndex(index);
         step.setWktStepName(stepName);
         step.setDurationValue(((long) durationValue));
+        step.setNotes(notes);
 
         WktStepDuration formatted_durationType = WorkoutStep.getDurationType(durationType);
         if (formatted_durationType == null) {

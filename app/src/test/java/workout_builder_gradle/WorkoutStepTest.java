@@ -154,4 +154,37 @@ class WorkoutStepTest {
         expected.setTargetType(WktStepTarget.CADENCE);
         assertEquals(expected.getTargetType(), step.getTargetType(), "durationValue should be DURATION_VALUE");
     }
+
+    @Test
+    void workoutNotesIsAdvice() {
+        String notes = "Some good piece of advice";
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, DURATION_TYPE_OPEN, DURATION_VALUE, "cadence",
+                TARGET_VALUE_POWER, notes,
+                null);
+        WorkoutStepMesg expected = new WorkoutStepMesg();
+        expected.setNotes(notes);
+        assertEquals(expected.getNotes(), step.getNotes(), "notes should be " + "'" + notes + "'");
+    }
+
+    @Test
+    void workoutNotesIsEmpty() {
+        String notes = "";
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, DURATION_TYPE_OPEN, DURATION_VALUE, "cadence",
+                TARGET_VALUE_POWER, notes,
+                null);
+        WorkoutStepMesg expected = new WorkoutStepMesg();
+        expected.setNotes(notes);
+        assertEquals(expected.getNotes(), step.getNotes(), "notes should be " + "'" + notes + "'");
+    }
+
+    @Test
+    void workoutNotesIsNull() {
+        String notes = null;
+        WorkoutStepMesg step = WorkoutStep.buildStep(1, null, DURATION_TYPE_OPEN, DURATION_VALUE, "cadence",
+                TARGET_VALUE_POWER, notes,
+                null);
+        WorkoutStepMesg expected = new WorkoutStepMesg();
+        expected.setNotes(notes);
+        assertEquals(expected.getNotes(), step.getNotes(), "notes should be " + "'" + notes + "'");
+    }
 }
