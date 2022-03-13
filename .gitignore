@@ -8,3 +8,7 @@ build
 
 # ignore fit artifacts
 *.fit
+
+*.class
+
+app/bin

@@ -7,26 +7,26 @@ import com.garmin.fit.WorkoutStepMesg;
 
 public abstract class WorkoutStep {
 
-    public static WorkoutStepMesg buildStep(int index, String step_name, String duration_type, long duration_value,
-            String target_type,
-            int target_value, String notes, int[] range) {
+    public static WorkoutStepMesg buildStep(int index, String stepName, String durationType, long durationValue,
+            String targetType,
+            int targetValue, String notes, int[] range) {
         WorkoutStepMesg step = new WorkoutStepMesg();
 
-        WktStepDuration formatted_duration_type = WorkoutStep.getDurationType(duration_type);
-        if (formatted_duration_type == null) {
+        WktStepDuration formatted_durationType = WorkoutStep.getDurationType(durationType);
+        if (formatted_durationType == null) {
             return null;
         }
-        step.setDurationType(formatted_duration_type);
+        step.setDurationType(formatted_durationType);
 
         return step;
     }
 
-    private static WktStepDuration getDurationType(String duration_type) {
+    private static WktStepDuration getDurationType(String durationType) {
         Map<String, WktStepDuration> enumMap = new HashMap<String, WktStepDuration>();
         enumMap.put("time", WktStepDuration.TIME);
         enumMap.put("distance", WktStepDuration.DISTANCE);
         enumMap.put("open", WktStepDuration.OPEN);
-        return enumMap.get(duration_type.toLowerCase());
+        return enumMap.get(durationType.toLowerCase());
     }
 
     private static boolean isWorkoutStepMesgValid(WorkoutStepMesg mesg) {
